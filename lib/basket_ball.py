@@ -90,11 +90,10 @@ def game_dict():
                 },
             ],
         },
-            
         "away": {
             "team_name": "Washington Wizards",
             "colors": ["Red", "White", "Navy Blue"],
-            "players": [   
+            "players": [
                 {
                     "name": "Bradley Beal",
                     "number": 3,
@@ -179,6 +178,31 @@ def game_dict():
                     "height_inches": 80,
                     "shoe_brand": "Jordan",
                 },
-            ]
-        }
+            ],
+        },
     }
+
+# Function to calculate and print average points per game by shoe brand
+def average_points_by_shoe_brand():
+    data = game_dict()
+    shoe_brand_totals = {}
+
+    for team in data.values():
+        for player in team["players"]:
+            brand = player["shoe_brand"]
+            points = player["points_per_game"]
+
+            if brand not in shoe_brand_totals:
+                shoe_brand_totals[brand] = {
+                    "total_points": 0,
+                    "player_count": 0
+                }
+            shoe_brand_totals[brand]["total_points"] += points
+            shoe_brand_totals[brand]["player_count"] += 1
+
+    for brand, stats in shoe_brand_totals.items():
+        average = stats["total_points"] / stats["player_count"]
+        print(f"{brand}: {average:.2f} points per game")
+
+# Run the function
+average_points_by_shoe_brand()
